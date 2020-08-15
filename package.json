@@ -4,8 +4,9 @@
   "description": "nurlresolver host on netlify",
   "main": "functions/server.js",
   "scripts": {
-    "build": "netlify-lambda build express",
-    "start": "nodemon server-local.js"
+    "build": "netlify-lambda build express --config ./webpack.config.js",
+    "start": "nodemon server-local.js",
+    "postinstall": "netlify-lambda install"    
   },
   "repository": {
     "type": "git",
