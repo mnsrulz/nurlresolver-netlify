@@ -5,8 +5,9 @@
   "main": "functions/server.js",
   "scripts": {
     "build": "netlify-lambda build express --config ./webpack.config.js",
+    "build:serve": "netlify-lambda serve express --config ./webpack.config.js",
     "start": "nodemon server-local.js",
-    "postinstall": "netlify-lambda install"    
+    "postinstall": "netlify-lambda install"
   },
   "repository": {
     "type": "git",
@@ -18,14 +19,18 @@
     "url": "https://github.com/mnsrulz/nurlresolver-netlify/issues"
   },
   "homepage": "https://github.com/mnsrulz/nurlresolver-netlify#readme",
-  "dependencies": {},
+  "dependencies": {
+    "@manishrawat4u/x-ray": "^2.3.5-mnsrulz",
+    "isobject": "^4.0.0",
+    "nurlresolver": "^1.5.3"
+  },
   "devDependencies": {
+    "@types/x-ray": "^2.3.3",
     "body-parser": "^1.19.0",
     "emitter": "0.0.5",
     "express": "^4.17.1",
     "netlify-lambda": "^1.6.3",
     "nodemon": "^1.19.2",
-    "nurlresolver": "^1.5.1",
     "serverless-http": "^2.3.0"
   }
 }

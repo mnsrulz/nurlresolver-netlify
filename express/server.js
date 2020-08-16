@@ -17,19 +17,8 @@ router.get('/', (req, res) => {
 router.get('/resolve', async (req, res) => {
   const { q } = url.parse(req.url, true).query;
   if (q) {
-    let objtoreturn = null;
-    try {
-      const result = await nurlresolver.resolve(q);
-      const responseResultToSend = {
-        message: 'resolve requested',
-        q,
-        result
-      };
-      objtoreturn = responseResultToSend;
-    } catch (error) {
-      objtoreturn = { e: 'error occurred', error };
-    }
-    res.json(objtoreturn);
+    const result = await nurlresolver.resolve(q);
+    res.json(result);
   } else {
     res.status(400).json({ error: 'Query param q not defined' });
   }
