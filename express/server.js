@@ -15,9 +15,11 @@ router.get('/', (req, res) => {
 });
 
 router.get('/resolve', async (req, res) => {
-  const { q } = url.parse(req.url, true).query;
+  const { q, m } = url.parse(req.url, true).query;
   if (q) {
-    const result = await nurlresolver.resolve(q);
+    const result = await nurlresolver.resolve(q, {
+      extractMetaInformation: m && m === true
+    });
     res.json(result);
   } else {
     res.status(400).json({ error: 'Query param q not defined' });
