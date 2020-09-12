@@ -18,7 +18,7 @@ router.get('/resolve', async (req, res) => {
   const { q, m } = url.parse(req.url, true).query;
   if (q) {
     const result = await nurlresolver.resolve(q, {
-      extractMetaInformation: m && m === true
+      extractMetaInformation: m && m === 'true'
     });
     res.json(result);
   } else {
