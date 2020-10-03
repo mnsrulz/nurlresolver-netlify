@@ -7,6 +7,7 @@ const bodyParser = require('body-parser');
 const url = require('url');
 const router = express.Router();
 const nurlresolver = require('nurlresolver');
+const cors = require('cors');
 
 router.get('/', (req, res) => {
   res.writeHead(200, { 'Content-Type': 'text/html' });
@@ -29,6 +30,7 @@ router.get('/resolve', async (req, res) => {
 router.get('/another', (req, res) => res.json({ route: req.originalUrl }));
 router.post('/', (req, res) => res.json({ postBody: req.body }));
 
+app.use(cors());
 app.use(bodyParser.json());
 app.use('/.netlify/functions/server', router);  // path must route to lambda
 app.use('/', (req, res) => res.sendFile(path.join(__dirname, '../index.html')));
