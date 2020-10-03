@@ -35,8 +35,8 @@
       flex-direction: column;
     }
 
-    pre{
-      white-space: pre-wrap; 
+    pre {
+      white-space: pre-wrap;
       word-break: break-word;
     }
   </style>
@@ -53,13 +53,15 @@
         <div class="ui middle aligned left aligned grid">
           <div class="row">
             <div class="column">
-              <form action=".netlify/functions/server/resolve" method="GET" class="ui form" @submit="resolve">
+              <form method="GET" class="ui form" @submit="resolve">
                 <div class="ui fluid action input">
-                  <input type="text" name="q" placeholder="Type in the url to resolve..." v-model="queryUrl">
-                  <button class="ui primary button">Resolve</button>
+                  <input type="text" autofocus name="q" placeholder="Type in the url to resolve..."
+                    v-bind:class="{ disabled: isResolving }" v-model="queryUrl">
+                  <div class="ui primary button" v-if="isResolving">Cancel</div>
+                  <button class="ui primary button" v-bind:class="{ disabled: isResolving }" v-else>Resolve</button>
                 </div>
                 <h4 class="ui dividing header">Options</h4>
-                <div class="field ">
+                <div class="field " v-bind:class="{ disabled: isResolving }">
                   <div class="ui checkbox">
                     <input name="m" type="checkbox" v-model="extractMetaInfo">
                     <label>Extract meta information</label>
@@ -114,37 +116,44 @@
         hasOutput: false,
         output: 'Hello Vue!',
         queryUrl: '',
-        extractMetaInfo: ''
+        extractMetaInfo: '',
+        isResolving: false
       },
       methods: {
         resolve: async function (e) {
-          e.preventDefault();
-          // function
-          const encodeFormData = (data) => {
-            return Object.keys(data)
-              .map(key => encodeURIComponent(key) + '=' + encodeURIComponent(data[key]))
-              .join('&');
-          }
-
-          this.hasOutput = false;
-          const queryObject = {
-            q: this.queryUrl,
-            m: this.extractMetaInfo
-          };
-
-          const queryParams = encodeFormData(queryObject);
-          const url = 'https://nurlresolver.netlify.app/.netlify/functions/server/resolve?' + queryParams;
-
-          const response = await fetch(url, {
-            method: 'GET',
-            headers: {
-              'Content-Type': 'application/x-www-form-urlencoded', 'Accept': 'application/json'
+          try {
+            e.preventDefault();
+            this.isResolving = true;
+            // function
+            const encodeFormData = (data) => {
+              return Object.keys(data)
+                .map(key => encodeURIComponent(key) + '=' + encodeURIComponent(data[key]))
+                .join('&');
             }
-          });
 
-          this.hasOutput = true;
-          const responseJson = await response.json();
-          this.output = JSON.stringify(responseJson, null, 2);
+            this.hasOutput = false;
+            const queryObject = {
+              q: this.queryUrl,
+              m: this.extractMetaInfo
+            };
+
+            const queryParams = encodeFormData(queryObject);
+            const url = '.netlify/functions/server/resolve?' + queryParams;
+
+            const response = await fetch(url, {
+              method: 'GET',
+              headers: {
+                'Content-Type': 'application/x-www-form-urlencoded', 'Accept': 'application/json'
+              }
+            });
+            
+            const responseJson = await response.json();
+            this.output = JSON.stringify(responseJson, null, 2);
+          } catch (error) {            
+            this.hasOutput = true;
+            this.output = JSON.stringify(error.toString());
+          }
+          this.isResolving = false;
         }
       }
     })
