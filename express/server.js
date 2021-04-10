@@ -16,11 +16,15 @@ router.get('/', (req, res) => {
 });
 
 router.get('/resolve', async (req, res) => {
-  const { q, m } = url.parse(req.url, true).query;
+  const { q, m, r, t } = req.query;
+
   if (q) {
-    const result = await nurlresolver.resolve(q, {
-      extractMetaInformation: m && m === 'true'
-    });
+    const options = {
+      extractMetaInformation: m && m === 'true',
+      timeout: parseInt(t) || 8  //8 seconds of timeout default
+    };
+    const result = r === 'true' ? await nurlresolver.resolveRecursive(q, options)
+                                : await nurlresolver.resolve(q, options);
     res.json(result);
   } else {
     res.status(400).json({ error: 'Query param q not defined' });

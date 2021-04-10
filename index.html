@@ -62,10 +62,18 @@
                   <button class="ui primary button" v-bind:class="{ disabled: isResolving }" v-else>Resolve</button>
                 </div>
                 <h4 class="ui dividing header">Options</h4>
-                <div class="field " v-bind:class="{ disabled: isResolving }">
-                  <div class="ui checkbox">
-                    <input name="m" type="checkbox" v-model="extractMetaInfo">
-                    <label>Extract meta information</label>
+                <div v-bind:class="{ disabled: isResolving }">
+                  <div class="field ">
+                    <div class="ui checkbox">
+                      <input name="m" type="checkbox" v-model="extractMetaInfo">
+                      <label>Extract meta information</label>
+                    </div>
+                  </div>
+                  <div class="field">
+                    <div class="ui checkbox">
+                      <input name="r" type="checkbox" v-model="recursive">
+                      <label>Recursive</label>
+                    </div>
                   </div>
                 </div>
               </form>
@@ -118,7 +126,8 @@
         output: 'Hello Vue!',
         queryUrl: '',
         extractMetaInfo: '',
-        isResolving: false
+        isResolving: false,
+        recursive: false
       },
       methods: {
         resolve: async function (e) {
@@ -135,7 +144,8 @@
             this.hasOutput = false;
             const queryObject = {
               q: this.queryUrl,
-              m: this.extractMetaInfo
+              m: this.extractMetaInfo,
+              r: this.recursive
             };
 
             const queryParams = encodeFormData(queryObject);
@@ -152,7 +162,7 @@
             this.output = JSON.stringify(responseJson, null, 2);
           } catch (error) {
             this.output = JSON.stringify(error.toString());
-          } 
+          }
           this.hasOutput = true;
           this.isResolving = false;
         }
