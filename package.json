@@ -28,6 +28,6 @@
     "netlify-lambda": "^2.0.1",
     "nodemon": "^2.0.7",
     "nurlresolver": "^1.14.1",
-    "serverless-http": "^2.6.0"
+    "serverless-http": "^2.7.0"
   }
 }
