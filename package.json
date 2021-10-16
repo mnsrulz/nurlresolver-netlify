@@ -24,7 +24,7 @@
     "cors": "^2.8.5",
     "emitter": "0.0.5",
     "express": "^4.17.1",
-    "netlify-lambda": "^2.0.14",
+    "netlify-lambda": "^2.0.15",
     "nodemon": "^2.0.13",
     "nurlresolver": "^2.2.1",
     "serverless-http": "^2.7.0"
