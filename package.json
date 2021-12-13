@@ -20,7 +20,7 @@
   },
   "homepage": "https://github.com/mnsrulz/nurlresolver-netlify#readme",
   "devDependencies": {
-    "body-parser": "^1.19.0",
+    "body-parser": "^1.19.1",
     "cors": "^2.8.5",
     "emitter": "0.0.5",
     "express": "^4.17.1",
