@@ -1,6 +1,6 @@
 {
   "name": "nurlresolver-netlify",
-  "version": "1.0.0",
+  "version": "2.12.2",
   "description": "nurlresolver host on netlify",
   "main": "functions/server.js",
   "scripts": {
