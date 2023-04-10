@@ -5,7 +5,7 @@ import serverless from 'serverless-http';
 const app = express();
 import { json } from 'body-parser';
 const router = Router();
-import nurlresolver from 'nurlresolver';
+import { nurlresolver } from 'nurlresolver';
 import cors from 'cors';
 
 router.get('/', (req, res) => {
