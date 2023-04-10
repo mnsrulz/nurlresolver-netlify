@@ -4,28 +4,23 @@ import { join } from 'path';
 import serverless from 'serverless-http';
 const app = express();
 const router = Router();
-import { nurlresolver } from 'nurlresolver';
+import nurlresolver from 'nurlresolver';
 import cors from 'cors';
 
 router.get('/', async (req, res) => {
-
-  const result = await nurlresolver.resolve('https://testing.com/t.m', {
-    extractMetaInformation: true,
-  });
-  res.json(result);
-  // res.writeHead(200, { 'Content-Type': 'text/html' });
-  // res.write('<h1>Hello from Express.js!</h1>');
-  // res.end();
+  res.writeHead(200, { 'Content-Type': 'text/html' });
+  res.write('<h1>Hello from Express.js!</h1>');
+  res.end();
 });
 
 router.get('/resolve', async (req, res) => {
   const { q, m, r, t } = req.query;
 
   if (typeof (q) == 'string') {
-    const extractMetaInformation = typeof (m) === 'string' && m === 'true';
-    const timeout = typeof (t) == 'string' ? parseInt(t) : 8 || 8;  //8 seconds of timeout default
+    const extractMetaInformation = m === 'true';
+    const timeout = parseInt(`${t}`) || 8;  //8 seconds of timeout default
     const result = r === 'true' ? await nurlresolver.resolveRecursive(q, { extractMetaInformation, timeout })
-                                : await nurlresolver.resolve(q, { extractMetaInformation, timeout });
+      : await nurlresolver.resolve(q, { extractMetaInformation, timeout });
     res.json(result);
   } else {
     res.status(400).json({ error: 'Query param q not defined' });
@@ -40,5 +35,4 @@ app.use(express.json());
 app.use('/.netlify/functions/server', router);  // path must route to lambda
 app.use('/', (req, res) => res.sendFile(join(__dirname, '../index.html')));
 
-// export default app;
 export const handler = serverless(app);
