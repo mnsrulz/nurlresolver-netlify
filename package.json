@@ -5,10 +5,7 @@
   "main": "functions/server.js",
   "type": "module",
   "scripts": {
-    "build": "esbuild express/server.ts --bundle --platform=node --target=ES2022 --outfile=functions/server.js --format=esm",
-    "build:serve": "netlify-lambda serve express --config ./webpack.config.js",
-    "start": "nodemon server-local.js",
-    "start:watch": "tsc-watch --onSuccess \"node server-local.ts\""
+    "build": "esbuild express/server.ts --bundle --platform=node --target=ES2022 --outfile=functions/server.js --format=esm"
   },
   "repository": {
     "type": "git",
@@ -33,6 +30,7 @@
     "nodemon": "^2.0.22",
     "nurlresolver": "^3.0.3",
     "serverless-http": "^3.2.0",
+    "tsc-watch": "^6.0.0",
     "typescript": "^5.0.4"
   }
 }
