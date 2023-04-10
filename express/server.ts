@@ -21,7 +21,8 @@ router.get('/resolve', async (req, res) => {
     const fn = r === 'true' ? nurlresolver.resolveRecursive : nurlresolver.resolve;
     const result = await fn(q, {
       extractMetaInformation: typeof (m) === 'string' && m === 'true',
-      timeout: typeof (t) == 'string' ? parseInt(t) : 8 || 8  //8 seconds of timeout default
+      timeout: typeof (t) == 'string' ? parseInt(t) : 8 || 8,  //8 seconds of timeout default
+      customResolvers: []
     });
     res.json(result);
   } else {

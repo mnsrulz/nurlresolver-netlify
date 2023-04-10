@@ -8,7 +8,7 @@
     "build": "esbuild express/server.ts --bundle --platform=node --target=ES2022 --outfile=functions/server.js --format=esm",
     "build:serve": "netlify-lambda serve express --config ./webpack.config.js",
     "start": "nodemon server-local.js",
-    "postinstall": "netlify-lambda install"
+    "start:watch": "tsc-watch --onSuccess \"node server-local.ts\""
   },
   "repository": {
     "type": "git",
