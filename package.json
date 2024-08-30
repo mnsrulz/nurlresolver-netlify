@@ -23,7 +23,7 @@
     "cors": "^2.8.5",
     "esbuild": "^0.20.2",
     "express": "^4.19.2",
-    "nurlresolver": "^3.14.1",
+    "nurlresolver": "^3.15.1",
     "serverless-http": "^3.2.0",
     "typescript": "^5.4.5"
   }
