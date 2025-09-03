@@ -3,9 +3,9 @@
   functions = "functions"
 
 [functions]
-  # Specifies `esbuild` for functions bundling  
   node_bundler = "esbuild"
   directory = "functions"
+  node_version = "20"   # ensures runtime is Node 20
 
 [build.environment]
-  NODE_VERSION = "16"
+  NODE_VERSION = "20"   # ensures build uses Node 20
