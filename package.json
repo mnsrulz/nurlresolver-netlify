@@ -3,6 +3,9 @@
   "version": "2.12.2",
   "description": "nurlresolver host on netlify",
   "main": "functions/server.js",
+  "engines": {
+    "node": ">=20"
+  },
   "type": "module",
   "scripts": {
     "build": "esbuild express/server.ts --bundle --minify --platform=node --target=ES2022 --outfile=functions/server.js --format=esm"
