@@ -28,6 +28,6 @@
     "express": "^5.1.0",
     "nurlresolver": "^4.0.0",
     "serverless-http": "^4.0.0",
-    "typescript": "^5.9.2"
+    "typescript": "^5.9.3"
   }
 }
